@@ -1,12 +1,13 @@
 # Projects Related to DOM
 
 ## Project link
-[Click Here...](https://stackblitz.com/edit/dom-project-tafsiralnafin-tbxjywwb-idqfkksx?file=index.html)
+[Click Here...](https://stackblitz.com/edit/dom-project-tafsiralnafin-tbxjywwb-tb6jsxdj?file=index.html)
 
 # Solution Code
 
 
-## Project 1
+## Project 1 
+### Color Changer
 ```javaScript
 console.log("Hello World")
 
@@ -41,6 +42,7 @@ Button.forEach((button) => {
 ```
 
 ## Project 2
+### BMI Calculator
 
 ``` javaScript
 
@@ -81,6 +83,7 @@ result.textContent = message;
 
 
 ## Project 3
+### Digital Clock
 
 ``` javaScript
 
@@ -90,5 +93,105 @@ setInterval((ele) => {
   let date = new Date();
   clock.textContent = date.toLocaleTimeString();
 }, 1000);
+
+```
+
+
+## Project 4
+### Guess The Number
+
+``` javaScript
+
+let randomNumber = Math.floor(Math.random() * 100) + 1;
+
+let submitbutton = document.querySelector('#subt');
+const userInput = document.querySelector('#guessField');
+const previousGuess = document.querySelector('.guesses');
+let remainningAttemp = document.querySelector('.lastResult');
+const start = document.querySelector('.resultParas');
+const p = document.querySelector('.lowOrHi');
+const add = document.querySelector('.add');
+
+let canplay = true;
+let counter = 0;
+
+let store = [];
+
+if (canplay) {
+  submitbutton.addEventListener('click', (e) => {
+    e.preventDefault();
+    const guess = parseInt(userInput.value);
+    isValidInput(guess);
+  });
+}
+
+function isValidInput(guess) {
+  if (isNaN(guess)) {
+    alert('Enter a valid Number');
+  } else if (guess < 1) {
+    alert('Number should be strictly greater than 0');
+  } else if (guess > 100) {
+    alert('Number should be less than or equal to 100');
+  } else {
+    store.push(guess);
+    if (counter === 10) {
+      displayPreviousGuess(guess);
+      displayMesseage(`Game Over. The Number was ${randomNumber}`);
+      endGame();
+    } else {
+      displayPreviousGuess(guess);
+      checkInput(guess);
+    }
+  }
+}
+
+function checkInput(guess) {
+  if (guess === randomNumber) {
+    displayMesseage(`Congrats! You guessed it Correctly`);
+    endGame();
+  } else if (guess < randomNumber) {
+    displayMesseage(`Number us too low`);
+  } else if (guess > randomNumber) {
+    displayMesseage(`Number is too High`);
+  }
+}
+
+function displayPreviousGuess(guess) {
+  userInput.value = '';
+  previousGuess.innerHTML += `${guess}, `;
+  counter++;
+  remainningAttemp.innerHTML = `${10 - counter}`;
+}
+
+function displayMesseage(message) {
+  p.innerHTML = `${message}`;
+}
+
+function endGame() {
+  canplay = false;
+  userInput.value = '';
+  remainningAttemp.innerHTML = '';
+  userInput.setAttribute('disabled', '');
+  add.classList.add('button');
+  add.innerHTML = `<h3 id = "newGame">Start new Game</h3>`;
+  start.appendChild(add);
+  newGame();
+}
+
+function newGame() {
+  const newGameButton = document.querySelector('#newGame');
+  newGameButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    canplay = true;
+    randomNumber = Math.floor(Math.random() * 100) + 1;
+    store = [];
+    counter = 0;
+    previousGuess.innerHTML = '';
+    remainningAttemp.innerHTML = `${10}`;
+    userInput.removeAttribute(`disabled`);
+    p.innerHTML = '';
+    start.removeChild(add);
+  });
+}
 
 ```
