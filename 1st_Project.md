@@ -1,7 +1,7 @@
 # Projects Related to DOM
 
 ## Project link
-[Click Here...](https://stackblitz.com/edit/dom-project-chaiaurcode?file=index.html)
+[Click Here...](https://stackblitz.com/edit/dom-project-tafsiralnafin-tbxjywwb?file=index.html)
 
 # Solution Code
 
@@ -37,5 +37,40 @@ Button.forEach((button) => {
   });
 });
 
+
+```
+
+## Project 2
+
+``` javaScript
+
+const form = document.querySelector('form');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  let height = document.querySelector('#height').value;
+  height = parseFloat(height);
+  let weight = parseFloat(document.querySelector('#weight').value);
+
+  let result = document.querySelector('#results');
+  result.style.display = 'block';
+  if (height === '' || height < 0 || isNaN(height)) {
+    result.textContent = 'Enter a valid Height';
+  } else if (weight === '' || weight < 0 || isNaN(weight)) {
+    result.textContent = 'Enter a valid Weight';
+  } else {
+    height = height / 100; // convert cm → m
+    const bmi = weight / height ** 2;
+
+    if (bmi < 18.6) {
+      result.textContent = "You're in the Underweight Zone! Eat healthy!";
+    } else if (bmi < 24.9) {
+      result.textContent =
+        "Congratulations! You're in the Normal Zone! Keep it up!";
+    } else {
+      result.textContent = 'Overweight :( Please exercise regularly.';
+    }
+  }
+});
 
 ```
