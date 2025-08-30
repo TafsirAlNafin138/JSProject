@@ -59,18 +59,36 @@ form.addEventListener('submit', (e) => {
   } else if (weight === '' || weight < 0 || isNaN(weight)) {
     result.textContent = 'Enter a valid Weight';
   } else {
-    height = height / 100; // convert cm → m
-    const bmi = weight / height ** 2;
+    height = height / 100;
+const bmi = weight / height ** 2;
 
-    if (bmi < 18.6) {
-      result.textContent = "You're in the Underweight Zone! Eat healthy!";
-    } else if (bmi < 24.9) {
-      result.textContent =
-        "Congratulations! You're in the Normal Zone! Keep it up!";
-    } else {
-      result.textContent = 'Overweight :( Please exercise regularly.';
-    }
+let message = `Your BMI is: ${bmi.toFixed(2)}\n \n`; 
+
+if (bmi < 18.6) {
+  message += "You're in the Underweight Zone! Eat healthy!";
+} else if (bmi < 24.9) {
+  message += "Congratulations! You're in the Normal Zone! Keep it up!";
+} else {
+  message += "Overweight! ☹️ Please exercise regularly.";
+}
+
+result.textContent = message; 
   }
 });
+
+
+```
+
+
+## Project 3
+
+``` javaScript
+
+const clock = document.querySelector('#clock');
+
+setInterval((ele) => {
+  let date = new Date();
+  clock.textContent = date.toLocaleTimeString();
+}, 1000);
 
 ```
