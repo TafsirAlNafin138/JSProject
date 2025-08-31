@@ -1,7 +1,7 @@
 # Projects Related to DOM
 
 ## Project link
-[Click Here...](https://stackblitz.com/edit/dom-project-tafsiralnafin-tbxjywwb-z5qwftgr?file=index.html)
+[Click Here...](https://stackblitz.com/edit/dom-project-tafsiralnafin-tbxjywwb-c57xeqnz?file=index.html)
 
 # Solution Code
 
@@ -193,5 +193,60 @@ function newGame() {
     start.removeChild(add);
   });
 }
+
+```
+
+
+## Project 5
+### Unlimited Colors
+
+``` javaScript
+
+const start = document.querySelector('#start');
+const end = document.querySelector('#stop');
+const body = document.body;
+
+let timer; 
+
+function randomRgbObj() {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return { css: `rgb(${r}, ${g}, ${b})`, r, g, b };
+}
+
+function contrastTextColor({ r, g, b }) {
+  const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+  return yiq >= 160 ? '#111' : '#fff';
+}
+
+end.disabled = true;
+
+function applyRandomColor() {
+  const { css, r, g, b } = randomRgbObj();
+  body.style.transition = 'background-color 400ms ease, color 300ms ease';
+  body.style.background = css;
+  body.style.color = contrastTextColor({ r, g, b });
+}
+
+start.addEventListener('click', (e) => {
+  e.preventDefault();
+  if (timer) return;              
+  applyRandomColor();             
+  timer = setInterval(applyRandomColor, 1000);
+  start.disabled = true;
+  end.disabled = false;
+});
+
+end.addEventListener('click', (e) => {
+  e.preventDefault();
+  if (!timer) return;  
+  clearInterval(timer);
+  timer = null;
+  start.disabled = false;
+  end.disabled = true;
+});
+
+
 
 ```
